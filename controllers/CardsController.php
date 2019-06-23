@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 class CardsController {
     function __construct() {
