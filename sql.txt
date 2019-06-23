@@ -1,0 +1,45 @@
+CREATE TABLE `Cards` (
+  `ID` int(11) NOT NULL,
+  `Cover` BLOB(255) NOT NULL,
+  `AlbumName` BLOB(255) NOT NULL,
+  `IssueYear` BLOB(4) NOT NULL,
+  `Duration` BLOB(4) NOT NULL,
+  `BuyDate` datetime NOT NULL,
+  `BuyPrice` BLOB(10) NOT NULL,
+  `StorageCode` BLOB(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Artists` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ArtistsRelate` (
+  `ID` int(11) NOT NULL,
+  `CardID` int(11) NOT NULL,
+  `ArtistID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `Artists`
+  ADD PRIMARY KEY (`ID`);
+
+ALTER TABLE `ArtistsRelate`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CardID` (`CardID`),
+  ADD KEY `ArtistID` (`ArtistID`);
+
+ALTER TABLE `Cards`
+  ADD PRIMARY KEY (`ID`);
+
+ALTER TABLE `Artists`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `ArtistsRelate`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `Cards`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `ArtistsRelate`
+  ADD CONSTRAINT `ArtistsRelate_ibfk_1` FOREIGN KEY (`CardID`) REFERENCES `Cards` (`ID`),
+  ADD CONSTRAINT `ArtistsRelate_ibfk_2` FOREIGN KEY (`ArtistID`) REFERENCES `Artists` (`ID`);
